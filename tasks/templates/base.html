@@ -40,17 +40,29 @@
                 TaskManager
             </a>
 
-            <div>
-                <a href="#" class="btn btn-outline-light btn-sm">
-                    Login
-                </a>
+            {% if user.is_authenticated %}
+            <div class="d-flex align-items-center">
 
-                <a href="#" class="btn btn-primary btn-sm">
-                    Sign up
-                </a>
+                <span class="text-light me-4">Hi, {{ user.username }}</span>
+
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-light btn-sm" type="submit">Log Out</button>
+                </form>
+
+                {% else %}
+                <div>
+                    <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm">
+                        Login
+                    </a>
+
+                    <a href="#" class="btn btn-primary btn-sm">
+                        Sign up
+                    </a>
+                    {% endif %}
+                </div>
+
             </div>
-
-        </div>
     </nav>
 
 
