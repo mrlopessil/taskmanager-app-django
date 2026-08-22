@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}My Tasks{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h1 class="fw-bold mb-1">My Tasks</h1>
+            <p class="text-muted mb-0">
+                Manage your tasks and deadlines.
+            </p>
+        </div>
+
+        <a href="#" class="btn btn-primary">
+            + New Task
+        </a>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        {% for task in tasks %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card border-0 shadow-sm h-100 task-card">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <h5 class="card-title fw-bold">
+                            {{ task.title }}
+                        </h5>
+
+                        {% if task.done %}
+                        <span class="badge text-bg-success">
+                            Done
+                        </span>
+                        {% else %}
+                        <span class="badge text-bg-warning">
+                            Pending
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                    <p class="text-muted mt-3">
+                        {{ task.description }}
+                    </p>
+
+                    {% if task.deadline %}
+                    <div class="text-muted small">
+                        Deadline: {{ task.deadline|date:"M d, Y" }}
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <div class="card-footer bg-white border-0">
+
+                    <a href="#" class="btn btn-outline-primary btn-sm">
+                        View
+                    </a>
+
+                    <a href="#" class="btn btn-outline-secondary btn-sm">
+                        Edit
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="text-center py-5">
+
+            <h3>No tasks yet</h3>
+
+            <p class="text-muted">
+                Create your first task to get started.
+            </p>
+
+            <a href="#" class="btn btn-primary">
+                Create task
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+
+</div>
+
+{% endblock %}
