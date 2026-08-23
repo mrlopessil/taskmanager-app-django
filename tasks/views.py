@@ -1,13 +1,18 @@
 from django.shortcuts import render
 from django.utils import timezone
 from .models import *
+from django.contrib.auth.models import User
 
 # Create your views here.
 def home(request):
-    tasks = Task.objects.all()
+    if request.user.is_authenticated:
+        user = request.user
+        tasks = Task.objects.filter(user=user)
 
-    for task in tasks:
-        if task.deadline:
-            task.time_until_deadline = task.deadline - timezone.now()
+        for task in tasks:
+            if task.deadline:
+                task.time_until_deadline = task.deadline - timezone.now()
             
-    return render(request, 'tasks/task_list.html', {'tasks': tasks})
+        return render(request, 'tasks/task_list.html', {'tasks': tasks})
+    else:
+        return render(request, 'tasks/task_list.html')
