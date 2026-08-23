@@ -19,11 +19,12 @@ from django.contrib.auth.views import LoginView
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
 from tasks import views
-from .forms import CustomLoginForm
+from django.contrib.auth.forms import AuthenticationForm
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("accounts/login", LoginView.as_view(template_name='registration/login.html', authentication_form=CustomLoginForm), name='login'),
+    path("accounts/login", LoginView.as_view(template_name='registration/login.html', authentication_form=AuthenticationForm), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.home, name='home'),
     path('tasks', views.tasks, name='tasks'),
