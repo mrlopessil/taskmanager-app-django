@@ -30,7 +30,26 @@
                     <div class="modal-body">
                         <form method="POST">
                             {% csrf_token %}
-                            {{ form }}
+                            <div>
+                                <label for="{{ form.title.id_for_label }}">Task title:</label>
+                                {{ form.title }}
+                            </div>
+
+                            <div>
+                                <label for="{{ form.description.id_for_label}}">Description (optional):</label>
+                                {{ form.description }}
+                            </div>
+
+                            <div>
+                                <label for="{{ form.deadline.id_for_label }}">Deadline (optional):</label>
+                                {{ form.deadline }}
+                            </div>
+
+                            <div>
+                                <label for="{{ form.priority.id_for_label }}">Task priority:</label>
+                                {{ form.priority }} 
+                            </div>
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Create Task</button>
