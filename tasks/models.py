@@ -10,7 +10,7 @@ class Task(models.Model):
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=350)
+    description = models.CharField(max_length=350, blank=True)
     done = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, blank=True)
