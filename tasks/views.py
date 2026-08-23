@@ -1,10 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
-from .models import *
+
+from todo.forms import TaskForm
+from .models import Task
 from django.contrib.auth.models import User
 
 # Create your views here.
-def home(request):
+def tasks(request):
     if request.user.is_authenticated:
         user = request.user
         tasks = Task.objects.filter(user=user)
