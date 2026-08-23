@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}TaskManager{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row min-vh-75 align-items-center">
+
+        <div class="col-lg-7 mx-auto text-center">
+
+            <h1 class="display-4 fw-bold mb-4">
+                Never forget a task again.
+            </h1>
+
+            <p class="lead text-secondary mb-4">
+                With TaskManager, you can keep track of your current
+                tasks, organize your work, and stay on top of your deadlines.
+            </p>
+
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                    Log in
+                </a>
+
+                <a href="" class="btn btn-outline-primary btn-lg">
+                    Create account
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
