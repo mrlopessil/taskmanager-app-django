@@ -13,13 +13,6 @@
                     <label for="{{ form.username.id_for_label }}"></label>
                     <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}"
                         class="form-control" placeholder="Digite seu usuário" required>
-
-                    {% for error in form.username.errors %}
-                    <div class="text-danger-small">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-
                 </div>
 
                 <div>
@@ -28,16 +21,10 @@
                     <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}"
                         class="form-control" placeholder="Digite sua senha" required>
 
-                    {% for error in form.password.errors %}
-                    <div class="text-danger-small">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-
                 </div>
 
                 {% if form.non_field_errors %}
-                <div>
+                <div class="mt-4 text-danger">
                     {% for error in form.non_field_errors %}
                     <p>{{ error }}</p>
                     {% endfor %}
