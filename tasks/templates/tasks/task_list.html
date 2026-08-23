@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}{% if user.is_authenticates %}My Tasks{% else %}TaskManager{% endif %}{% endblock %}
+{% block title %}My Tasks{% endblock %}
 
 {% block content %}
 
 
-{% if user.is_authenticated %}
 <div class="container py-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -17,10 +16,24 @@
             </p>
         </div>
 
-        <a href="#" class="btn btn-primary">
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTask">
             + New Task
         </a>
 
+        <div class="modal fade" id="createTask" tabindex="-1" aria-labelledby="createTaskLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="createTaskLabel">New Task</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -101,11 +114,5 @@
     </div>
 
 </div>
-
-{% else %}
-<div class="d-flex mx-auto p-2 flex-column align-items-center mt-4">
-    
-</div>
-{% endif %}
 
 {% endblock %}
