@@ -24,7 +24,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("accounts/login", LoginView.as_view(template_name='registration/login.html', authentication_form=AuthenticationForm), name='login'),
+    path("accounts/login", LoginView.as_view(template_name='registration/login.html', authentication_form=AuthenticationForm, redirect_authenticated_user=True), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.home, name='home'),
     path('tasks', views.tasks, name='tasks'),
