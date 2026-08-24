@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/login", LoginView.as_view(template_name='registration/login.html', authentication_form=AuthenticationForm, redirect_authenticated_user=True), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register', views.create_user, name='register'),
     path('', views.home, name='home'),
     path('tasks', views.tasks, name='tasks'),
 ]

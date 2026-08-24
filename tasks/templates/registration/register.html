@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container min-vh-75 d-flex align-items-center">
+    <div class="row justify-content-center w-100">
+        <div class="col-6 border border-dark-subtle rounded p-4" style="min-width: 350px;">
+            <h2>Sign In</h2>
+            <form method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}"></label>
+                    {{ field }}
+                </div>
+
+                {% if field.errors %}
+                <div class="text-danger mt-4">
+                    {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% endfor %}
+
+                <button type="submit" class="btn btn-dark w-100 mt-4">Create account</button>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
