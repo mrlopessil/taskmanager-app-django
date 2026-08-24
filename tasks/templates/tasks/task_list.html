@@ -94,8 +94,8 @@
 
                         <form method="POST" action="{% url 'toggle_task' task.id %}" class="d-flex gap-2">
                             {% csrf_token %}
-                            <input type="checkbox" onchange="this.form.submit()">
-                            <span class="small">Pending</span>
+                            <input type="checkbox" onchange="this.form.submit()" id="{{ task.id }}">
+                            <label for="{{ task.id }}">Pending</label>
                         </form>
 
                     </div>
@@ -155,8 +155,8 @@
 
                         <form method="POST" action="{% url 'toggle_task' task.id %}" class="d-flex gap-2">
                             {% csrf_token %}
-                            <input type="checkbox" onchange="this.form.submit()" checked>
-                            <span class="small">Done</span>
+                            <input type="checkbox" onchange="this.form.submit()" id="{{ task.id }}" checked>
+                            <label for="{{ task.id }}">Done</label>
                         </form>
 
 
