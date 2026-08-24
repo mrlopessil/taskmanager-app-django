@@ -30,25 +30,13 @@
                     <div class="modal-body">
                         <form method="POST">
                             {% csrf_token %}
-                            <div>
-                                <label for="{{ form.title.id_for_label }}">Task title:</label>
-                                {{ form.title }}
-                            </div>
 
-                            <div>
-                                <label for="{{ form.description.id_for_label}}">Description (optional):</label>
-                                {{ form.description }}
+                            {% for field in form %}
+                            <div class="mb-2">
+                                {{ field.label }}
+                                {{ field }}
                             </div>
-
-                            <div>
-                                <label for="{{ form.deadline.id_for_label }}">Deadline (optional):</label>
-                                {{ form.deadline }}
-                            </div>
-
-                            <div>
-                                <label for="{{ form.priority.id_for_label }}">Task priority:</label>
-                                {{ form.priority }} 
-                            </div>
+                            {% endfor %}
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -91,9 +79,13 @@
 
                     </div>
 
+                    {% if task.description %}
                     <p class="text-muted mt-3">
                         {{ task.description }}
                     </p>
+                    {% else %}
+                    <p class="text-muted mt-3">No description</p>
+                    {% endif %}
 
                     {% if task.deadline %}
                     <div class="text-muted small">
