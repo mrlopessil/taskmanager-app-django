@@ -66,13 +66,13 @@
 
                     <div class="card-body">
 
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
 
                             <h5 class="card-title fw-bold">
                                 {{ task.title }}
                             </h5>
 
-                            <span class="badge text-bg-warning">
+                            <span class="badge text-bg-warning p-2"></>
                                 Pending
                             </span>
 
@@ -121,19 +121,23 @@
             </div>
 
             <div class="container p-0">
-                <h2>Done ({{ completed_tasks|length }})</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Done ({{ completed_tasks|length }})</h2>
+                    <a href="">Hide your completed tasks</a>
+                </div>
+
                 {% for task in completed_tasks %}
                 <div class="card border-0 shadow-sm h-100 task-card mb-4">
 
                     <div class="card-body">
 
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
 
                             <h5 class="card-title fw-bold">
                                 {{ task.title }}
                             </h5>
 
-                            <span class="badge text-bg-success">
+                            <span class="badge text-bg-success p-2">
                                 Done
                             </span>
 
