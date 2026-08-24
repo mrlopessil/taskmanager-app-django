@@ -93,6 +93,13 @@
                     </div>
                     {% endif %}
 
+                    <form method="POST" action="{% url 'toggle_task' task.id %}" class="d-flex gap-2">
+                        {% csrf_token %}
+                        <input type="checkbox" onchange="this.form.submit()" {% if task.done %}checked{% endif %}>
+                        <span class="small">{% if task.done %}Done{% else %}Pending{% endif %}</span>
+                    </form>
+
+
                 </div>
 
                 <div class="card-footer bg-white border-0">
