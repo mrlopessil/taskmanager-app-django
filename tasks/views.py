@@ -33,12 +33,15 @@ def tasks(request):
         form = TaskForm()
 
     tasks = Task.objects.filter(user=user)
+    pending_tasks = tasks.filter(done=False)
+    completed_tasks = tasks.filter(done=True)
 
     for task in tasks:
         if task.deadline:
             task.time_until_deadline = task.deadline - timezone.now()
 
-    context = {'form': form, 'tasks': tasks}
+    context = {'form': form, 'tasks': tasks,
+               'pending_tasks': pending_tasks, 'completed_tasks': completed_tasks}
 
     return render(request, 'tasks/task_list.html', context)
 

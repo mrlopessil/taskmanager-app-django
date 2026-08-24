@@ -7,6 +7,37 @@
 
 <div class="container py-5">
 
+    <div class="modal fade" id="createTask" tabindex="-1" aria-labelledby="createTaskLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createTaskLabel">New Task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="mb-2">
+                            {{ field.label }}
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create Task</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% if tasks %}
+
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
@@ -20,105 +51,139 @@
             + New Task
         </a>
 
-        <div class="modal fade" id="createTask" tabindex="-1" aria-labelledby="createTaskLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="createTaskLabel">New Task</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST">
-                            {% csrf_token %}
-
-                            {% for field in form %}
-                            <div class="mb-2">
-                                {{ field.label }}
-                                {{ field }}
-                            </div>
-                            {% endfor %}
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Create Task</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
-
 
     <div class="row g-4">
 
-        {% for task in tasks %}
+        <div class="d-flex align-items-start gap-4">
 
-        <div class="col-md-6 col-lg-4">
+            <div class="container p-0">
+                <h2>Pending ({{ pending_tasks|length }})</h2>
 
-            <div class="card border-0 shadow-sm h-100 task-card">
+                {% for task in pending_tasks %}
 
-                <div class="card-body">
+                <div class="card border-0 shadow-sm h-100 task-card mb-4">
 
-                    <div class="d-flex justify-content-between">
+                    <div class="card-body">
 
-                        <h5 class="card-title fw-bold">
-                            {{ task.title }}
-                        </h5>
+                        <div class="d-flex justify-content-between">
 
-                        {% if task.done %}
-                        <span class="badge text-bg-success">
-                            Done
-                        </span>
+                            <h5 class="card-title fw-bold">
+                                {{ task.title }}
+                            </h5>
+
+                            <span class="badge text-bg-warning">
+                                Pending
+                            </span>
+
+                        </div>
+
+                        {% if task.description %}
+                        <p class="text-muted mt-3">
+                            {{ task.description }}
+                        </p>
                         {% else %}
-                        <span class="badge text-bg-warning">
-                            Pending
-                        </span>
+                        <p class="text-muted mt-3">No description</p>
                         {% endif %}
 
+                        {% if task.deadline %}
+                        <div class="text-muted small">
+                            Deadline: {{ task.deadline|date:"M d, Y" }}
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" action="{% url 'toggle_task' task.id %}" class="d-flex gap-2">
+                            {% csrf_token %}
+                            <input type="checkbox" onchange="this.form.submit()">
+                            <span class="small">Pending</span>
+                        </form>
+
                     </div>
 
-                    {% if task.description %}
-                    <p class="text-muted mt-3">
-                        {{ task.description }}
-                    </p>
-                    {% else %}
-                    <p class="text-muted mt-3">No description</p>
-                    {% endif %}
+                    <div class="card-footer bg-white border-0">
 
-                    {% if task.deadline %}
-                    <div class="text-muted small">
-                        Deadline: {{ task.deadline|date:"M d, Y" }}
+                        <a href="#" class="btn btn-outline-primary btn-sm">
+                            View
+                        </a>
+
+                        <a href="#" class="btn btn-outline-secondary btn-sm">
+                            Edit
+                        </a>
+
                     </div>
-                    {% endif %}
-
-                    <form method="POST" action="{% url 'toggle_task' task.id %}" class="d-flex gap-2">
-                        {% csrf_token %}
-                        <input type="checkbox" onchange="this.form.submit()" {% if task.done %}checked{% endif %}>
-                        <span class="small">{% if task.done %}Done{% else %}Pending{% endif %}</span>
-                    </form>
-
 
                 </div>
 
-                <div class="card-footer bg-white border-0">
-
-                    <a href="#" class="btn btn-outline-primary btn-sm">
-                        View
-                    </a>
-
-                    <a href="#" class="btn btn-outline-secondary btn-sm">
-                        Edit
-                    </a>
-
-                </div>
+                {% empty %}
+                <span class="text-muted">You have no pending tasks, congrats!</span>
+                {% endfor %}
 
             </div>
 
+            <div class="container p-0">
+                <h2>Done ({{ completed_tasks|length }})</h2>
+                {% for task in completed_tasks %}
+                <div class="card border-0 shadow-sm h-100 task-card mb-4">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between">
+
+                            <h5 class="card-title fw-bold">
+                                {{ task.title }}
+                            </h5>
+
+                            <span class="badge text-bg-success">
+                                Done
+                            </span>
+
+                        </div>
+
+                        {% if task.description %}
+                        <p class="text-muted mt-3">
+                            {{ task.description }}
+                        </p>
+                        {% else %}
+                        <p class="text-muted mt-3">No description</p>
+                        {% endif %}
+
+                        {% if task.deadline %}
+                        <div class="text-muted small">
+                            Deadline: {{ task.deadline|date:"M d, Y" }}
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" action="{% url 'toggle_task' task.id %}" class="d-flex gap-2">
+                            {% csrf_token %}
+                            <input type="checkbox" onchange="this.form.submit()" checked>
+                            <span class="small">Done</span>
+                        </form>
+
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+
+                        <a href="#" class="btn btn-outline-primary btn-sm">
+                            View
+                        </a>
+
+                        <a href="#" class="btn btn-outline-secondary btn-sm">
+                            Edit
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+                <span class="text-muted">You still haven't done any tasks, go finish them!</span>
+                {% endfor %}
+
+            </div>
         </div>
 
-        {% empty %}
+        {% else %}
 
         <div class="text-center py-5">
 
@@ -133,9 +198,7 @@
             </a>
 
         </div>
-
-        {% endfor %}
-
+        {% endif %}
     </div>
 
 </div>
