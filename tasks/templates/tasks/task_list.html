@@ -123,8 +123,12 @@
             <div class="container p-0">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Done ({{ completed_tasks|length }})</h2>
-                    <a href="">Hide your completed tasks</a>
+                    {% if completed_tasks %}
+                    <button id="toggleBtn" type="button" class="btn btn-link">Hide your completed tasks</button>
+                    {% endif %}
                 </div>
+
+                <div id="togglableContent">
 
                 {% for task in completed_tasks %}
                 <div class="card border-0 shadow-sm h-100 task-card mb-4">
@@ -183,7 +187,7 @@
                 {% empty %}
                 <span class="text-muted">You still haven't done any tasks, go finish them!</span>
                 {% endfor %}
-
+                </div>
             </div>
         </div>
 
