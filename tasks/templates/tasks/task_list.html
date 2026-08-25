@@ -55,11 +55,12 @@
 
     <div class="row g-4">
 
-        <div class="d-flex align-items-start gap-4">
-
-            <div class="container p-0">
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-center">
                 <h2>Pending ({{ pending_tasks|length }})</h2>
+            </div>
 
+            <div class="mt-2">
                 {% for task in pending_tasks %}
 
                 <div class="card border-0 shadow-sm h-100 task-card mb-4">
@@ -117,18 +118,18 @@
                 {% empty %}
                 <span class="text-muted">You have no pending tasks, congrats!</span>
                 {% endfor %}
+            </div>
+        </div>
 
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Done ({{ completed_tasks|length }})</h2>
+                {% if completed_tasks %}
+                <button id="toggleBtn" type="button" class="btn btn-link">Hide your completed tasks</button>
+                {% endif %}
             </div>
 
-            <div class="container p-0">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2>Done ({{ completed_tasks|length }})</h2>
-                    {% if completed_tasks %}
-                    <button id="toggleBtn" type="button" class="btn btn-link">Hide your completed tasks</button>
-                    {% endif %}
-                </div>
-
-                <div id="togglableContent">
+            <div id="togglableContent" class="mt-2">
 
                 {% for task in completed_tasks %}
                 <div class="card border-0 shadow-sm h-100 task-card mb-4">
@@ -187,9 +188,9 @@
                 {% empty %}
                 <span class="text-muted">You still haven't done any tasks, go finish them!</span>
                 {% endfor %}
-                </div>
             </div>
         </div>
+
 
         {% else %}
 
