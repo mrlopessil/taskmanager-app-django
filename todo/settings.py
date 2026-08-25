@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -124,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = 'tasks' 
+LOGIN_REDIRECT_URL = 'tasks'
 LOGOUT_REDIRECT_URL = 'tasks'
 
 # Internationalization
@@ -151,6 +152,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 
 # Email
