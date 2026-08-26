@@ -47,6 +47,9 @@ def tasks(request):
 
 
 def create_user(request):
+    if request.user.is_authenticated:
+        return redirect('tasks')
+
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
