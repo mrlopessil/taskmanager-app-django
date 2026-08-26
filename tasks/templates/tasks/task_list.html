@@ -101,15 +101,17 @@
 
                     </div>
 
-                    <div class="card-footer bg-white border-0">
+                    <div class="card-footer bg-white border-0 d-flex gap-1">
 
                         <a href="#" class="btn btn-outline-primary btn-sm">
                             View
                         </a>
 
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            Edit
-                        </a>
+                        <form action="{% url 'delete_task' task.id %}">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                Delete
+                            </button>
+                        </form>
 
                     </div>
 
@@ -171,15 +173,19 @@
 
                     </div>
 
-                    <div class="card-footer bg-white border-0">
+                    <div class="card-footer bg-white border-0 d-flex gap-1">
 
                         <a href="#" class="btn btn-outline-primary btn-sm">
                             View
                         </a>
 
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            Edit
-                        </a>
+                        <form class="col-md-6" action="{% url 'delete_task' task.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger btn-sm" type="submit">
+                                Delete
+                            </button>
+                        </form>
+
 
                     </div>
 

@@ -45,6 +45,11 @@ def tasks(request):
 
     return render(request, 'tasks/task_list.html', context)
 
+def delete_task(request, task_id):
+    task = Task.objects.get(pk=task_id)
+    task.delete()
+
+    return redirect('tasks')
 
 def create_user(request):
     if request.user.is_authenticated:
