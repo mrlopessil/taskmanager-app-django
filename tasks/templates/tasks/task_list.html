@@ -15,15 +15,32 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST">
+
+                    <form method="POST" class="">
                         {% csrf_token %}
 
-                        {% for field in form %}
                         <div class="mb-2">
-                            {{ field.label }}
-                            {{ field }}
+                            <label class="mb-1" for="{{ form.title.id_for_label }}">Task title</label>
+                            {{ form.title }}
+
                         </div>
-                        {% endfor %}
+
+                        <div class="mb-2">
+                            <label class="mb-1" for="{{ form.description.id_for_label }}">Description (optional)</label>
+                            <textarea rows="6" maxlength="350" class="form-control" style="resize: none;" name="{{ form.description.name }}"
+                                id="{{ form.description.id_for_label }}"></textarea>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label class="mb-1" for="{{ form.deadline.id_for_label }}">Deadline (optional)</label>
+                                {{ form.deadline }}
+                            </div>
+                            <div class="col">
+                                <label class="mb-1" for="{{ form.priority.id_for_label }}">Task priority</label>
+                                {{ form.priority }}
+                            </div>
+                        </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -10,20 +10,8 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'description', 'deadline', 'priority']
 
-        labels = {
-            'title': 'Task title:',
-            'description': 'Description (optional):',
-            'deadline': 'Deadline (optional):',
-            'priority': 'Task priority:'
-        }
-
         widgets = {
             'title': forms.TextInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-            'description': forms.TextInput(
                 attrs={
                     'class': 'form-control'
                 }
@@ -39,7 +27,6 @@ class TaskForm(forms.ModelForm):
                     'class': 'form-control'
                 }
             ),
-
         }
 
 
